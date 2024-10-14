@@ -201,7 +201,38 @@ const config: Config = {
             } satisfies Plugin.PluginOptions,
         ],
     ],
-    themes: ["docusaurus-theme-openapi-docs"],
+    themes: [
+        "docusaurus-theme-openapi-docs",
+        [
+            require.resolve("@getcanary/docusaurus-theme-search-pagefind"),
+            {
+                // https://getcanary.dev/docs/common/customization/styling#css-variables
+                styles: {
+                    "--canary-color-primary-c": 0.1,
+                    "--canary-color-primary-h": 231,
+                    "--canary-font-family-base": "var(--ifm-font-family-base)",
+                    "--canary-font-family-mono":
+                        "var(--ifm-font-family-monospace)",
+                },
+                // https://pagefind.app/docs/ranking
+                pagefind: {
+                    ranking: {
+                        pageLength: 0.9,
+                        termFrequency: 1.0,
+                        termSimilarity: 1.0,
+                        termSaturation: 1.5,
+                    },
+                },
+                indexOnly: false,
+                includeRoutes: ["**/*"],
+                excludeRoutes: ["**/rex/api/*"],
+                // https://getcanary.dev/docs/local/demo
+                // https://getcanary.dev/docs/common/guides/filtering
+                // e.g. [{"name":"All","pattern":"**/*"}]
+                tabs: [],
+            },
+        ],
+    ],
 };
 
 export default config;
